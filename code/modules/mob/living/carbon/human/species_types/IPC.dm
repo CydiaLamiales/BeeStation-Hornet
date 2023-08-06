@@ -4,7 +4,8 @@
 	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,
+	TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE, TRAIT_RADMUTATIONIMMUNE, TRAIT_RADBRAINDAMAGE,TRAIT_RADBURNNOTTOX)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -253,3 +254,24 @@
 		BP.limb_id = chassis_of_choice.limbs_id
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
 		BP.update_limb()
+
+/proc/generate_IPC_brain_error_message()
+	var/message = "Your"
+	var/object_type = pick(list(
+		"hypertext inflator","failsafe directory","stack initializer",\
+		"anti-freeze capacitor","data stream diode","TCP bottleneck","supercharged I/O bolt",\
+		"tradewind stabilizer","radiated XML cable","registry fluid tank"
+	))
+	message = "[message] [object_type]"
+	var/action_type = pick(list(
+		"glitches out", "buzzes", "rumbles", "overheats", "makes a high pitched noise"
+	))
+	message = "[message] [action_type]"
+	var/error_type = pick(list(
+		"stops tuning its bootstrap projector","begins to constantly remix its binary pool"+\
+		"shuts off its BMX calibrator","begins leaking its XSS coolant",\
+		"starts sending out a connection error warning", "stops being able to reseed kernels to function properly",
+		"flashes an error message about being unable to locate its neurotube console"
+	))
+	message = "[message] and [error_type]!"
+	return message

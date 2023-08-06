@@ -18,6 +18,11 @@
 		"purple" = "#FF00FF"
 	)
 
+/obj/projectile/energy/nuclear_particle/on_hit(atom/target, blocked, pierce_hit)
+	if(HAS_TRAIT(target, TRAIT_RADBURNNOTTOX))
+		damage_type = BURN
+	return ..()
+
 /obj/projectile/energy/nuclear_particle/proc/random_color_time()
 	//Random color time!
 	var/our_color = pick(particle_colors)

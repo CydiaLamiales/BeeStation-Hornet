@@ -362,7 +362,10 @@
 
 	radiation -= min(radiation, RAD_LOSS_PER_TICK)
 	if(radiation > RAD_MOB_SAFE)
-		adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT)
+		if(HAS_TRAIT(src, TRAIT_RADBURNNOTTOX))
+			adjustFireLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT)
+		else if(!HAS_TRAIT(src, TRAIT_TOXIMMUNE))
+			adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT)
 
 
 /*

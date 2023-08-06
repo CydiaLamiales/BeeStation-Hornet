@@ -1359,9 +1359,32 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		to_chat(H, "<span class='danger'>You feel weak.</span>")
 
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
-		H.vomit(10, TRUE)
+		var/obj/item/organ/stomach = H.getorganslot( ORGAN_SLOT_STOMACH )
+		if(!( H.getorgan(/obj/item/organ/stomach) && stomach.organ_flags == ORGAN_SYNTHETIC))
+			H.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE)
+	if(HAS_TRAIT(H, TRAIT_RADBRAINDAMAGE) && radiation > RAD_MOB_MUTATE)
+		if(prob(1))
+			to_chat(H,"<span class='danger'>Your system produces an error!</span>" )
+			var/trauma_type = pick_weight(list(
+				BRAIN_TRAUMA_MILD = 65,
+				BRAIN_TRAUMA_SEVERE = 30,
+				BRAIN_TRAUMA_SPECIAL = 5
+			) )
+			var/resistance = pick(
+				95;TRAUMA_RESILIENCE_BASIC,
+				5;TRAUMA_RESILIENCE_MAGIC
+			)
+			H.gain_trauma_type( trauma_type, resistance )
+			var/emote_type = pick_weight( list(
+				"beep" = 34,
+				"buzz" = 34,
+				"buzz2" = 34,
+			) )
+			H.emote(emote_type)
+			to_chat(H, "<span class='warning'>[generate_IPC_brain_error_message()]</span>")
+
+	if(radiation > RAD_MOB_MUTATE && !HAS_TRAIT(H, TRAIT_RADMUTATIONIMMUNE))
 		if(prob(1))
 			to_chat(H, "<span class='danger'>You mutate!</span>")
 			H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)

@@ -162,6 +162,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
 #define TRAIT_RADIMMUNE			"rad_immunity"
+#define TRAIT_RADMUTATIONIMMUNE "rad_mutation_immunity" //Makes the user not get DNA mutations from getting irradiated
+#define TRAIT_RADBRAINDAMAGE	"rad_brain_damage" //Used on IPCs to make them suffer brain damage from rads
+#define TRAIT_RADBURNNOTTOX		"radiation_burn_damage" //Used on IPCs to make them take burn damage from radballs instead of toxin
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER		"dismember_immunity"
